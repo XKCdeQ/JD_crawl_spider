@@ -1,7 +1,7 @@
 <!--
  * @Author: XKC
  * @Date: 2021-07-05 00:01:44
- * @LastEditTime: 2021-07-05 00:36:38
+ * @LastEditTime: 2021-07-05 00:45:12
  * @LastEditors: XKC
  * @Description: 
  * @FilePath: \JD_crawl_spider\README.md
@@ -9,7 +9,7 @@
 # JD_crawl_spider
 京东众筹爬虫，导出Excel
 
-可以改变categoryId参数改变爬取种类
+可以改变categoryId参数改变爬取数据分类
 
 每次爬取需要移除文件夹中的Excel文件，或改变源代码中的Excel表命名
 

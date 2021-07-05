@@ -1,7 +1,7 @@
 <!--
  * @Author: XKC
  * @Date: 2021-07-05 00:01:44
- * @LastEditTime: 2021-07-05 00:45:12
+ * @LastEditTime: 2021-07-05 11:16:34
  * @LastEditors: XKC
  * @Description: 
  * @FilePath: \JD_crawl_spider\README.md
@@ -28,7 +28,7 @@ totalvideo|视频数目
 reportcount|无偿支持者
 prepost|项目发起人发起项目数
 presupport|项目发起人支持项目数
-support|项目持人数
+support|项目支持持人数
 ountprice|所有价位
 totalprice|价位数
 totalscore|项目评分

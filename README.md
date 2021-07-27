@@ -32,3 +32,4 @@ support|项目支持持人数
 ountprice|所有价位
 totalprice|价位数
 totalscore|项目评分
+picurl|项目图片地址

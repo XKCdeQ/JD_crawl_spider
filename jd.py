@@ -19,10 +19,10 @@ class JD:
     pages = 1
     total_number = 1
     flag_data = 1
-    col=("name"," process", "realmoney", "aimmoney", "startdate", "enddate", "totalpic", "totalvideo", "reportcount", "prepost", "presupport", "support", "countprice", "totalprice","totalscore")
+    col=("name"," process", "realmoney", "aimmoney", "startdate", "enddate", "totalpic", "totalvideo", "reportcount", "prepost", "presupport", "support", "countprice", "totalprice","totalscore","picurl")
     workbook= xlwt.Workbook(encoding='UTF-8')
     worksheet=workbook.add_sheet('JD',cell_overwrite_ok=True)
-    for i in range(0,15):
+    for i in range(0,16):
         worksheet.write(0,i,col[i])
 
     def __init__(self, pagenumber):
@@ -32,7 +32,7 @@ class JD:
 
         def write_item_to_file(flag_col,item):
             print('开始写入数据 ====> ' + str(item))
-            for i in range(0,15):
+            for i in range(0,16):
                 self.worksheet.write(flag_col,i,json.dumps(item[i], ensure_ascii=False))
 
 
@@ -63,6 +63,7 @@ class JD:
                 for result in results:
                     web = result
                     web2 = 'https://z.jd.com/'+str(web)
+                    # print(web2)
                     detailhtml = requests.get(web2)
                     if html.status_code == 200:
                         detailregu = re.compile('<h1 class="p-title">(.*?)</h1>.*?<p class="p-num"><span>￥</span>(.*?)</p>.*?<span class="fl percent">(.*?)</span><span.*?class="fr">(.*?)</span>.*?<span class="f_red">(.*?)</span>前得到.*?<span class="f_red"><i>￥</i>(.*?)</span>.*?项目进展<span class="tab-bubble">(.*?)</span></h2>.*?<div class="fl start"><span>发起</span><span class="num">(.*?)</span></div>.*?<div class="fl"><span>支持</span><span class="num">(.*?)</span></div>', re.S)
@@ -78,6 +79,15 @@ class JD:
                             pname=pname.replace('，', '')
                             enddate = enddate.strip()
                         #结束日期
+
+
+                        #项目图片链接
+                            picurlgu = re.compile('<div class="project-img">(.*?)</div>.*?<i (.*?)></i>', re.S)
+                            picurltxt = re.findall(picurlgu, detailhtml.text)
+                            xi=picurltxt[0][0].find("src=")
+                            yi=picurltxt[0][0].find("\"",xi+5)
+                            picurl=picurltxt[0][0][xi+5:yi]
+
 
                             totalpic = (detailhtml.text).count('<img class="lazyout-detail" ')+(detailhtml.text).count('<img alt=')
                         #图片数量
@@ -103,7 +113,7 @@ class JD:
                             else:
                                 startdate = startdate[-1].strip()
 
-                            alldetail = [pname, process, realmoney, aimmoney, startdate, enddate, totalpic, totalvideo, reportcount, prepost, presupport, support, countprice, totalprice, totalscore]
+                            alldetail = [pname, process, realmoney, aimmoney, startdate, enddate, totalpic, totalvideo, reportcount, prepost, presupport, support, countprice, totalprice, totalscore,picurl]
 
                             write_item_to_file(self.flag_data,alldetail)
                             self.flag_data += 1 
